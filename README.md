@@ -1,20 +1,70 @@
-# Guide de développement Web
-Ensemble de règles et bonnes pratiques de développement Web
+# Cadriciel - sass
 
-[Guide HTML](guide-html.md)    
-[Guide CSS](guide-css.md)  
-[Liste de contrôle](liste-de-controle.md)     
-[Ressources et liens](ressources-et-liens.md)
-  
-[Cadriciel](cadriciel/index.html)
+## Lien vers Github Pages  
+https://IDENTIFIANT.github.io/guide-developpement-web/cadriciel-sass/
 
-[Hello World de Github - en français](github-hello-world-fr.md)
+## @todo
+### 1. Personnaliser le menu en améliorant son accessibilité
 
-## Crédits 
-Une partie des contenus présents dans ce répertoire se réfère au [Guide de codage de l'agence AlsaCréations](https://github.com/alsacreations/guidelines). 
+> Cynthia : « À partir du menu dans le Guide de développement, voici le HTML qui pourrait être ajouté lorsque JavaScript est actif. La valeur de l'attribut aria-expanded serait à modifier (par Javascript) selon s'il est ouvert ou fermé. »
 
-Parmi les autres sources: 
-- le [site pédagogique du cours Intégration I](https://www.hautemontagne.ca/)   
-- ainsi que les [ressources du WAI](https://www.w3.org/WAI/tutorials/).   
+Analyse:
+- ne pas remplacer le html par celui-ci dessous!! seulement ajouter sur la balise nav l'attribut  
+  `aria-label="Menu principal"`
+- lorsqu'on crée le bouton ligne 24 : `this.refButton = document.createElement('button');`
+- il y a 3 attributs supplémentaires à ajouter au bouton menu:
+  - aria-expanded="false" 
+  - aria-haspopup="menu" 
+  - aria-controls="navList"
+- pour faire ces ajouts [utiliser `setAttribute(name,value)`](https://developer.mozilla.org/fr/docs/Web/API/Element/setAttribute) .
+- repérer où dans le script vous devez faire basculer la valeur booléenne de `aria-expanded` 
 
-Tous les contenus ont été révisés et adaptés pour convenir au contexte pédagogique du cours Intégration II offert par le programme [Techniques d'intégration multimédia du Cégep de Sainte-Foy](https://timcsf.cegep-ste-foy.qc.ca/). 
+
+```
+<nav class="nav" aria-label="Menu principal">
+
+    <button class="nav__control" aria-expanded="false" aria-haspopup="menu" aria-controls="navList">
+
+        <span class="nav__span">Fermer</span>
+
+    </button>
+
+    <ul class="nav__list" id="navList">
+
+        <li class="nav__list-item">
+
+            <a href="#" class="nav__link">Lien 1</a>
+
+        </li>
+
+        <li class="nav__list-item">
+
+            <a href="#" class="nav__link">Lien 2</a>
+
+        </li>
+
+        <li class="nav__list-item">
+
+            <!-- remarquer que .nav__link--active est le modificateur de .nav__link
+
+        pour mettre en valeur l'item de menu courant -->
+
+            <a href="index.html" class="nav__link nav__link--active" aria-current="page">Page courante</a>
+
+        </li>
+
+        <li class="nav__list-item">
+
+            <a href="#" class="nav__link">Lien 4</a>
+
+        </li>
+
+        <li class="nav__list-item">
+
+            <a href="#" class="nav__link">Lien 5</a>
+
+        </li>
+
+    </ul>
+
+</nav> ```
